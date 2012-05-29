@@ -53,6 +53,7 @@ function update() {
 	$('#valSlider').slider('values',0,minHsvVal*1000);
 	$('#valSlider').slider('values',1,maxHsvVal*1000);
 	var reverse = $('#reverse').attr('checked');
+	var fold = $('#fold').attr('checked');
 	var outputFormat = $('#outputFormat option:selected').attr('id');
 	//console.log(outputFormat);
 	
@@ -62,6 +63,9 @@ function update() {
 	var satStep = satSpan / numSteps;
 	var valSpan = maxHsvVal - minHsvVal;
 	var valStep = valSpan / numSteps;
+	if (fold) {
+		hueStep = Math.abs(hueStep);
+	}
 	var hsv_tuples = []; //as three floating point values in range [0-1]
 	var hsl_tuples = []; //as three floating point values in range [0-1]
 	var rgb_tuples = []; //as three floating point values in range [0-1]
@@ -214,6 +218,7 @@ $(function(){
 	update();
 	$('#numSteps').change(update);
 	$('#reverse').change(update);
+	$('#fold').change(update);
 	$('#minHsvHue').change(update);
 	$('#maxHsvHue').change(update);
 	$('#minHsvSat').change(update);
